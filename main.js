@@ -47,7 +47,7 @@ const setTypes = (db, elem, i) => {
     db[i] = "constReg";
   } else {
     if (elem === "*") {
-      // errors.innerHTML = "ВСЕ ВЕРНО";
+      // errors.innerHTML = "ВСЕ В ПОРЯДКЕ. ТАК И ДОЛЖНО БЫТЬ!!!";
       return;
     }
     errors.innerHTML = `ERROR : Недопустимый символ ${elem}    `;
