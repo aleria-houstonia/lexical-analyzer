@@ -8,25 +8,22 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div>
-      <div class="inpText">
-        <textarea
-          style="width: 1000px; font-size: 30px"
-          id="res"
-          rows="10"
-          class="code-block"
-        ></textarea>
+    <div class="all">
+      <div class="inp_part">
+        <div class="inpText">
+          <textarea
+            style="width: 1000px; font-size: 30px"
+            id="res"
+            rows="10"
+            class="code-block"
+          ></textarea>
+        </div>
+        <div class="block-error" id="block-error"></div>
+        <button id="btn-start" onclick="getData()">Запустить</button>
       </div>
-      <button id="btn-start" onclick="getData()">Запустить</button>
-      <div class="block-error"></div>
-      <div class="table">
-        <div class="table-const"></div>
-        <div class="table-keywords"></div>
-        <div class="table-ident"></div>
-        <div class="table-special-symb"></div>
-        <div class="table-oper"></div>
-      </div>
+      <div id="table"></div>
     </div>
+
     <script src="./vars.js"></script>
     <script src="./main.js"></script>
   </body>

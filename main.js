@@ -1,25 +1,40 @@
+let errors = document.getElementById("block-error");
+let table = document.getElementById("table");
+
 let exit = false;
 function getData() {
+  table.innerHTML = "";
+  errors.innerHTML = "";
+  exit = false;
   inpStr = document.getElementById("res").value;
   inpStr += "*";
 
   for (let i = 0; i < inpStr.length; i++) {
     if (exit) {
       return;
-    }
-    setTypes(types, inpStr[i], i);
-    if (buf.length === 0) {
+    } else {
+      setTypes(types, inpStr[i], i);
+      if (buf.length === 0) {
+        buf += inpStr[i];
+        setTypes(bufType, inpStr[i], 0);
+        continue;
+      }
+      if (types[i] !== bufType[bufType.length - 1]) {
+        if (buf !== " ") checkLexems(buf, identReg.test(buf));
+        buf = "";
+        bufType = [];
+      }
       buf += inpStr[i];
       setTypes(bufType, inpStr[i], 0);
-      continue;
     }
-    if (types[i] !== bufType[bufType.length - 1]) {
-      if (buf !== " ") checkLexems(buf, identReg.test(buf));
-      buf = "";
-      bufType = [];
+  }
+  console.log(resMas);
+  for (let i = 0; i < resMas.length; i++) {
+    table.innerHTML += keys[i];
+    for (let j = 0; j < resMas[i].length; j++) {
+      table.innerHTML += `${resMas[i][j]}  `;
     }
-    buf += inpStr[i];
-    setTypes(bufType, inpStr[i], 0);
+    table.innerHTML += "<br/>";
   }
 }
 
@@ -32,10 +47,10 @@ const setTypes = (db, elem, i) => {
     db[i] = "constReg";
   } else {
     if (elem === "*") {
-      console.log("все в порядке. Так и должно быть!");
+      // errors.innerHTML = "ВСЕ ВЕРНО";
       return;
     }
-    console.log("недопустимый символ=", elem);
+    errors.innerHTML = `ERROR : Недопустимый символ ${elem}    `;
     exit = true;
   }
 };
@@ -53,7 +68,7 @@ function checkLexems(bfr, fType) {
       if (bfr.length <= 8) {
         resMas[5].push(bfr);
       } else {
-        console.log("Недопустимая длина идентификатора");
+        errors.innerHTML = `ERROR :Недопустимая длина идентификаторa ${bfr}`;
         exit = true;
       }
     }

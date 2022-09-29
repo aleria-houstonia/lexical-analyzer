@@ -16,12 +16,27 @@ background: rgb(3, 3, 37);
 .block-error{
     border: 2px solid rgb(3, 1, 20);
     width: 1000px;
-    height: 180px;
+    height: 170px;
+    font-size: 20px;
+    font-weight: 600;
     background: rgb(13, 13, 65);
+    color: rgb(245, 46, 39);
 }
 .code-block{
 background: rgb(13, 13, 65);
 color: rgb(82, 82, 255);
 border:2px solid rgb(3, 3, 39);
 outline: none;
+}
+#table{
+    background: rgb(13, 13, 65);
+    color: aliceblue;
+    padding: 25px;
+    margin-left: 20px;
+    font-size: 20px;
+    min-width: 220px;
+    max-height: 490px;
+}
+.all{
+    display: flex;
 }
