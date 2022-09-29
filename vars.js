@@ -12,10 +12,10 @@ let keyw = [
   binOperat = ["AND", "OR", "IMP"],
   unOperat = ["NOT"],
   specW = [":", ";", "(", ")", ",", "=", " "],
-  constants = [0, 1],
+  constants = ["0", "1"],
   //регул
   identReg = /^[A-Z]*$/,
-  specReg = /\:|\;|\(|\)|\,|\=|\_/,
+  specReg = /\:|\;|\(|\)|\,|\=|\s/,
   constReg = /^[0-1]$/,
   // хранилища
   resMas = [[], [], [], [], [], []], /// резы 0-ключ 1 - конст 2 - биноп 3-уноп 4-спец,5 идент
@@ -23,3 +23,4 @@ let keyw = [
   buf = "",
   bufType = [],
   types = [];
+//nedopustim=

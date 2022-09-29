@@ -1,18 +1,16 @@
+let exit = false;
 function getData() {
   inpStr = document.getElementById("res").value;
   inpStr += "*";
 
   for (let i = 0; i < inpStr.length; i++) {
-    setTypes(types, identReg, inpStr[i], "letter", i);
-    setTypes(types, specReg, inpStr[i], "specReg", i);
-    setTypes(types, constReg, inpStr[i], "constReg", i);
-
+    if (exit) {
+      return;
+    }
+    setTypes(types, inpStr[i], i);
     if (buf.length === 0) {
       buf += inpStr[i];
-      setTypes(bufType, identReg, inpStr[i], "letter", i);
-      setTypes(bufType, specReg, inpStr[i], "specReg", i);
-      setTypes(bufType, constReg, inpStr[i], "constReg", i);
-
+      setTypes(bufType, inpStr[i], 0);
       continue;
     }
     if (types[i] !== bufType[bufType.length - 1]) {
@@ -21,27 +19,44 @@ function getData() {
       bufType = [];
     }
     buf += inpStr[i];
-    setTypes(bufType, identReg, inpStr[i], "letter", 0);
-    setTypes(bufType, specReg, inpStr[i], "specReg", 0);
-    setTypes(bufType, constReg, inpStr[i], "constReg", 0);
+    setTypes(bufType, inpStr[i], 0);
   }
 }
-const setTypes = (db, reg, elem, type, i) => {
-  if (reg.test(elem)) db[i] = type;
-};
 
+const setTypes = (db, elem, i) => {
+  if (identReg.test(elem)) {
+    db[i] = "letter";
+  } else if (specReg.test(elem)) {
+    db[i] = "specReg";
+  } else if (constReg.test(elem)) {
+    db[i] = "constReg";
+  } else {
+    if (elem === "*") {
+      console.log("все в порядке. Так и должно быть!");
+      return;
+    }
+    console.log("недопустимый символ=", elem);
+    exit = true;
+  }
+};
 function checkLexems(bfr, fType) {
   if (fType) {
     resMas[0].push(finder(bfr, keyw) ? bfr : "");
     resMas[2].push(finder(bfr, binOperat) ? bfr : "");
     resMas[3].push(finder(bfr, unOperat) ? bfr : "");
-    resMas[5].push(
+
+    if (
       resMas[0][resMas[0].length - 1].length == 0 &&
-        resMas[2][resMas[2].length - 1] == 0 &&
-        resMas[3][resMas[3].length - 1].length == 0
-        ? bfr
-        : ""
-    );
+      resMas[2][resMas[2].length - 1].length == 0 &&
+      resMas[3][resMas[3].length - 1].length == 0
+    ) {
+      if (bfr.length <= 8) {
+        resMas[5].push(bfr);
+      } else {
+        console.log("Недопустимая длина идентификатора");
+        exit = true;
+      }
+    }
   } else {
     for (var i = 0; i < bfr.length; i++) {
       resMas[1].push(finder(bfr[i], constants) ? bfr[i] : "");
