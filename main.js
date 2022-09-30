@@ -3,20 +3,21 @@ let table = document.getElementById("table");
 
 let exit = false;
 function getData() {
+  resMas = [[], [], [], [], [], []];
   table.innerHTML = "";
   errors.innerHTML = "";
   exit = false;
   inpStr = document.getElementById("res").value;
-  inpStr += "*";
-
+  inpStr += " *";
+  console.log(inpStr);
   for (let i = 0; i < inpStr.length; i++) {
     if (exit) {
       return;
     } else {
-      setTypes(types, inpStr[i], i);
+      setTypes(types, inpStr[i], i, i);
       if (buf.length === 0) {
         buf += inpStr[i];
-        setTypes(bufType, inpStr[i], 0);
+        setTypes(bufType, inpStr[i], 0, i);
         continue;
       }
       if (types[i] !== bufType[bufType.length - 1]) {
@@ -25,7 +26,7 @@ function getData() {
         bufType = [];
       }
       buf += inpStr[i];
-      setTypes(bufType, inpStr[i], 0);
+      setTypes(bufType, inpStr[i], 0, i);
     }
   }
   console.log(resMas);
@@ -38,7 +39,7 @@ function getData() {
   }
 }
 
-const setTypes = (db, elem, i) => {
+const setTypes = (db, elem, i, tek) => {
   if (identReg.test(elem)) {
     db[i] = "letter";
   } else if (specReg.test(elem)) {
@@ -46,8 +47,9 @@ const setTypes = (db, elem, i) => {
   } else if (constReg.test(elem)) {
     db[i] = "constReg";
   } else {
-    if (elem === "*") {
-      // errors.innerHTML = "ВСЕ В ПОРЯДКЕ. ТАК И ДОЛЖНО БЫТЬ!!!";
+    if (elem === "*" && inpStr.length - 1 === tek) {
+      errors.innerHTML = "ВСЕ ВЕРНО";
+      errors.style.color = "white";
       return;
     }
     errors.innerHTML = `ERROR : Недопустимый символ ${elem}    `;
