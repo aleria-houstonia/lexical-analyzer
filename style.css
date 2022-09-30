@@ -40,3 +40,7 @@ outline: none;
 .all{
     display: flex;
 }
+
+.pColor{
+    color: rgb(55, 255, 55);
+}

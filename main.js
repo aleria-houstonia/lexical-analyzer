@@ -31,7 +31,7 @@ function getData() {
   }
   console.log(resMas);
   for (let i = 0; i < resMas.length; i++) {
-    table.innerHTML += keys[i];
+    table.innerHTML += `<span class="pColor">${keys[i]}</span>`;
     for (let j = 0; j < resMas[i].length; j++) {
       table.innerHTML += `${resMas[i][j]}  `;
     }
@@ -52,7 +52,7 @@ const setTypes = (db, elem, i, tek) => {
       errors.style.color = "white";
       return;
     }
-    errors.innerHTML = `ERROR : Недопустимый символ ${elem}    `;
+    errors.innerHTML = `ERROR : Недопустимый символ ${elem}   `;
     exit = true;
   }
 };
